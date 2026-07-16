@@ -32,10 +32,10 @@ FEATURE_LABELS = {
 
 
 FEATURE_HELP = {
-    "HMCA sign": "Binary input: 0 = No, 1 = Yes.",
-    "Hypertension": "Binary input: 0 = No, 1 = Yes.",
-    "Diabetes": "Binary input: 0 = No, 1 = Yes.",
-    "MCE": "Binary input for the joint outcome model: 0 = No, 1 = Yes.",
+    "HMCA sign": "Binary variable: 0 = No, 1 = Yes.",
+    "Hypertension": "Binary variable: 0 = No, 1 = Yes.",
+    "Diabetes": "Binary variable: 0 = No, 1 = Yes.",
+    "MCE": "Binary input for the joint prognostic model: 0 = No, 1 = Yes.",
     "Onset-to-reperfusion time": "Enter minutes from onset to reperfusion.",
 }
 
@@ -59,23 +59,26 @@ FEATURE_ORDER = [
 
 
 FEATURE_SECTIONS = [
-    ("Shared features", ["mFEP", "NIHSS", "mTTS", "HMCA sign"]),
-    ("MCE model features", ["mTMAX", "CS", "NLR", "Onset-to-reperfusion time"]),
-    ("Functional outcome model features", ["mMTT", "WBC count", "mCBF", "mTTD", "Hypertension", "Diabetes"]),
+    ("Shared Clinical and Imaging Features", ["mFEP", "NIHSS", "mTTS", "HMCA sign"]),
+    ("Additional Features for the MCE Model", ["mTMAX", "CS", "NLR", "Onset-to-reperfusion time"]),
+    (
+        "Additional Features for the Functional Outcome Model",
+        ["mMTT", "WBC count", "mCBF", "mTTD", "Hypertension", "Diabetes"],
+    ),
 ]
 
 
 MODEL_SPECS = {
     "mce": {
-        "label": "MCE risk model",
+        "label": "Malignant Cerebral Edema Model",
         "directory": APP_DIR / "assets" / "mce",
     },
     "functional": {
-        "label": "3-month poor functional outcome model",
+        "label": "Three-Month Functional Outcome Model",
         "directory": APP_DIR / "assets" / "diagnosis",
     },
     "functional_mce": {
-        "label": "3-month poor functional outcome + MCE model",
+        "label": "Three-Month Functional Outcome Model with MCE",
         "directory": APP_DIR / "assets" / "diagnosis_mce",
     },
 }

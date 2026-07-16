@@ -52,16 +52,16 @@ def render_prediction(column, title, result, source_text):
 
 def main():
     st.set_page_config(
-        page_title="ExtraTrees Online Calculator",
+        page_title="Three-Month Prognostic Prediction Tool",
         page_icon="🧮",
         layout="wide",
     )
 
     bundles, feature_specs = load_resources()
 
-    st.title("ExtraTrees 在线预测计算器")
+    st.title("Three-Month Prognostic Prediction Tool")
     st.write(
-        "基于你当前保存的 3 个 ExtraTrees 模型，自动输出 MCE 风险和 3 个月不良功能结局发生概率。"
+        "This web calculator estimates the probabilities of malignant cerebral edema and poor functional outcome at 3 months using three bundled ExtraTrees models."
     )
     st.info(
         "This tool is for research and decision support only. It does not replace clinician judgment."
@@ -87,23 +87,23 @@ def main():
                 with columns[idx % 2]:
                     patient_values[feature_name] = render_feature_input(feature_name, feature_specs[feature_name])
 
-        st.subheader("Joint model MCE input")
+        st.subheader("MCE Input for the Joint Model")
         mce_input_mode = st.radio(
-            "Diagnosis+MBE 联合模型如何处理 MCE？",
+            "How should the joint prognostic model use MCE?",
             options=(
-                "Auto use predicted MCE class",
-                "Manual MCE = 0",
-                "Manual MCE = 1",
+                "Automatically use the predicted MCE class",
+                "Manually set MCE to 0",
+                "Manually set MCE to 1",
             ),
             index=0,
         )
 
-        submitted = st.form_submit_button("Calculate probabilities")
+        submitted = st.form_submit_button("Calculate Risk")
 
     if submitted:
-        if mce_input_mode == "Manual MCE = 0":
+        if mce_input_mode == "Manually set MCE to 0":
             manual_mce = 0
-        elif mce_input_mode == "Manual MCE = 1":
+        elif mce_input_mode == "Manually set MCE to 1":
             manual_mce = 1
         else:
             manual_mce = None
@@ -116,25 +116,25 @@ def main():
         result_columns = st.columns(3)
         render_prediction(
             result_columns[0],
-            "MCE",
+            "Malignant Cerebral Edema (MCE)",
             summary.mce,
             "Source: model_analysis_results_MBE_full / ExtraTrees",
         )
         render_prediction(
             result_columns[1],
-            "3-month poor functional outcome",
+            "Poor Functional Outcome at 3 Months",
             summary.functional,
             "Source: model_analysis_results_Diagnosis_full / ExtraTrees",
         )
         render_prediction(
             result_columns[2],
-            "3-month outcome + MCE joint model",
+            "Poor Functional Outcome at 3 Months (Joint Model)",
             summary.functional_mce,
             "Source: model_analysis_results_Diagnosis+MBE_full / ExtraTrees",
         )
 
-        st.subheader("Joint-model MCE handling")
-        st.write(f"MCE value fed into the joint model: `{summary.mce_input_for_joint_model}`")
+        st.subheader("MCE Handling for the Joint Model")
+        st.write(f"MCE value used by the joint model: `{summary.mce_input_for_joint_model}`")
         st.write(f"Source: {summary.mce_input_source}")
 
         if manual_mce is None:
