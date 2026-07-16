@@ -14,9 +14,9 @@ The web app outputs:
 - 3-month poor functional outcome probability
 - 3-month poor functional outcome probability from the joint model
 
-## Why this project pins Python 3.9
+## Why this project targets Python 3.10
 
-The bundled `.pkl` model files were verified locally under Python `3.9`. On Streamlit Community Cloud, set the app runtime to Python `3.9` in `Advanced settings` when you deploy.
+The bundled `.pkl` model files were verified locally under Python `3.9` and `3.10`. Streamlit Community Cloud currently supports Python `3.10` through `3.14`, so choose Python `3.10` in `Advanced settings` when you deploy.
 
 ## Run locally
 
@@ -40,7 +40,7 @@ Then open the local URL printed by Streamlit, usually `http://localhost:8501`.
    app.py
    ```
 
-4. In `Advanced settings`, choose Python `3.9`.
+4. In `Advanced settings`, choose Python `3.10`.
 5. Deploy and wait for the app to build.
 
 For Chinese step-by-step instructions, see `DEPLOY_GUIDE_ZH.md`.

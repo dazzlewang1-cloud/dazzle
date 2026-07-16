@@ -23,7 +23,7 @@
 
 你的模型是已经保存好的 `best_model.pkl`。
 
-这类 sklearn / joblib 模型最怕部署环境版本漂移，尤其是 Python 和依赖版本不一致。这里最关键的是部署时把 Python 版本选成 `3.9`，因为这套模型已经在这个版本下验证通过。
+这类 sklearn / joblib 模型最怕部署环境版本漂移，尤其是 Python 和依赖版本不一致。这里最关键的是部署时把 Python 版本选成 `3.10`，因为这套模型我已经在本地 `Python 3.10` 下实际验证通过了。
 
 另外我已经补了 `packages.txt`，里面放了 `libgomp1`，这是 `scikit-learn` 在 Linux 环境里常见需要的系统库。
 
@@ -64,7 +64,7 @@
 打开 `Advanced settings`，把 Python 版本改成：
 
 ```text
-3.9
+3.10
 ```
 
 这一点很关键。
@@ -95,7 +95,7 @@
 ## 如果构建失败，优先检查这几项
 
 1. 部署时 `Main file path` 是否填的是 `app.py`
-2. 部署时 Python 版本是否选了 `3.9`
+2. 部署时 Python 版本是否选了 `3.10`
 3. 根目录里是否直接有 `requirements.txt`
 4. `assets/` 是否完整上传
 5. 上传的是否是 `extratrees_online_calculator` 目录内容本身，而不是外面又多包了一层目录
@@ -109,5 +109,15 @@
 2. 打开 `https://share.streamlit.io/`
 3. 选择仓库
 4. 把入口文件设成 `app.py`
-5. 把 Python 版本设成 `3.9`
+5. 把 Python 版本设成 `3.10`
 6. 点击 `Deploy`
+
+## 很重要：如果你已经用错 Python 版本部署过一次
+
+Streamlit 官方说明里写得很明确：应用一旦创建后，不能直接修改 Python 主版本。
+
+如果你第一次部署时没有选对版本，正确做法是：
+
+1. 删除当前这个 app
+2. 重新从 GitHub 仓库创建
+3. 在创建时就把 Python 版本选成 `3.10`
