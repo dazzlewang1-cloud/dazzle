@@ -1,25 +1,60 @@
-# 🎈 Blank app template
+# ExtraTrees Online Calculator
 
-A simple Streamlit app template for you to modify!
+This repository is ready to deploy on Streamlit Community Cloud.
 
-[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://blank-app-template.streamlit.app/)
+It bundles three saved ExtraTrees pipelines:
 
-### How to run it on your own machine
+- `assets/mce`: MCE prediction
+- `assets/diagnosis`: 3-month poor functional outcome prediction
+- `assets/diagnosis_mce`: joint 3-month outcome model that includes `MCE`
 
-Prerequisite: install `uv` if you don't already have it.
+The web app outputs:
 
+- MCE probability
+- 3-month poor functional outcome probability
+- 3-month poor functional outcome probability from the joint model
+
+## Why this project pins Python 3.9
+
+The bundled `.pkl` model files were verified locally under Python `3.9`. On Streamlit Community Cloud, set the app runtime to Python `3.9` in `Advanced settings` when you deploy.
+
+## Run locally
+
+```bash
+pip install -r requirements.txt
+streamlit run app.py
 ```
-$ curl -LsSf https://astral.sh/uv/install.sh | sh
-```
 
-1. Sync the dependencies
+Then open the local URL printed by Streamlit, usually `http://localhost:8501`.
 
-   ```
-   $ uv sync
+## Deploy to Streamlit Community Cloud
+
+1. Push this folder to a GitHub repository root.
+2. Open the Streamlit deployment page:
+
+   `https://share.streamlit.io/`
+
+3. Select your repository and set the main file path to:
+
+   ```text
+   app.py
    ```
 
-2. Run the app
+4. In `Advanced settings`, choose Python `3.9`.
+5. Deploy and wait for the app to build.
 
-   ```
-   $ uv run streamlit run streamlit_app.py
-   ```
+For Chinese step-by-step instructions, see `DEPLOY_GUIDE_ZH.md`.
+
+## Repository contents
+
+- `app.py`: Streamlit UI
+- `predictor.py`: model loading and prediction logic
+- `requirements.txt`: Python dependencies
+- `packages.txt`: Linux system package dependencies for Streamlit Cloud
+- `assets/`: bundled model files and metadata
+
+## Notes
+
+- The `Diagnosis+MBE` model requires an `MCE` input.
+- If the true `MCE` status is unknown, the app can auto-fill `MCE` using the predicted MCE class.
+- This tool is for research and decision support only. It is not a standalone clinical decision maker.
