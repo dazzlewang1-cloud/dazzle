@@ -64,7 +64,16 @@ def main():
         "This web calculator estimates the probabilities of malignant cerebral edema and poor functional outcome at 3 months using three bundled ExtraTrees models."
     )
     st.info(
-        "This tool is for research and decision support only. It does not replace clinician judgment."
+        "**Research Use Only — External Validation Required**\n\n"
+    "This online calculator is intended for research purposes only. "
+    "The prediction models implemented in this tool have not undergone "
+    "independent external validation. Therefore, their predictive "
+    "performance and generalizability in other patient populations and "
+    "clinical settings remain uncertain. Independent external validation "
+    "is required before these models can be considered for clinical "
+    "implementation. The predictions should not be used as the sole basis "
+    "for clinical decision-making and do not replace professional "
+    "clinical judgment."
     )
 
     with st.sidebar:
